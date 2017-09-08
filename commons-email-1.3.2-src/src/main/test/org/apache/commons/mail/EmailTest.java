@@ -78,7 +78,12 @@ public class EmailTest extends TestCase {
 	@Override
 	protected void tearDown() {
 		System.out.println("Running: tearDown");
-		email = null;
-		assertNull(email);
+		try{
+			email = null;
+			assertNull(email);
+		}catch (NullPointerException npe){
+			System.out.println("Failed: tearDown");
+			System.out.println(npe);
+		}
 	}
 }
