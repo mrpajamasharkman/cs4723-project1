@@ -2,6 +2,7 @@ package org.apache.commons.mail;
 
 import org.junit.Test;
 
+
 import junit.framework.TestCase;
 
 public class EmailTest extends TestCase {
@@ -11,6 +12,7 @@ public class EmailTest extends TestCase {
 	@Override
 	protected void setUp() {
 		System.out.println("Running: setUp");
+		//EmailConstants testEmail = new EmailConstants();
 		email = "lucastiedeman@gmail.com";
 	}
 	
@@ -22,7 +24,7 @@ public class EmailTest extends TestCase {
 	@Test
 	public void testAddCc() {
 		System.out.println("Running: testAddCc");
-		//assertEquals(addCc(email, null) == email);
+		//assertEquals(testEmail.addCc(email, null) == email);
 	}
 	
 	@Test
