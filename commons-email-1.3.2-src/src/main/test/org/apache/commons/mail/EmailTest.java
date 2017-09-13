@@ -1,9 +1,8 @@
 package org.apache.commons.mail;
 
 import org.junit.Test;
-
-
 import junit.framework.TestCase;
+import org.easymock.*;
 
 public class EmailTest extends TestCase {
 
@@ -24,7 +23,8 @@ public class EmailTest extends TestCase {
 	@Test
 	public void testAddCc() {
 		System.out.println("Running: testAddCc");
-		//assertEquals(testEmail.addCc(email, null) == email);
+		Email testEmail = EasyMock.createMock(Email.class);
+		
 	}
 	
 	@Test
