@@ -133,30 +133,20 @@ public class EmailTest extends TestCase {
 	@Test
 	public void testGetSentDate() {
 		System.out.println("Running: testGetSentDate");
+		Date date = new Date();
 		
-		//record
-		EasyMock.expect(testEmail.getSentDate()).andReturn(testEmail.sentDate);
+		//Test case for if sentDate is null
+		if(testEmail.sentDate == null) {
+			EasyMock.expect(testEmail.getSentDate()).andReturn(date);
+			EasyMock.replay(testEmail);
+			assertEquals(date,testEmail.getSentDate());
+		}
+		else {
+			EasyMock.expect(testEmail.getSentDate()).andReturn(testEmail.sentDate);
+			EasyMock.replay(testEmail);
+			assertEquals(testEmail.sentDate,testEmail.getSentDate());
+		}
 		
-		//replay
-		EasyMock.replay(testEmail);
-		
-		//verify
-		assertEquals(testEmail.sentDate,testEmail.getSentDate());
-		EasyMock.verify(testEmail);
-	}
-	
-	@Test
-	public void testGetSentDateNull() {
-		System.out.println("Running: testGetSentDate");
-		Email testEmail = EasyMock.createMock(Email.class);
-		//record
-		EasyMock.expect(testEmail.getSentDate()).andReturn(new Date());
-		
-		//replay
-		EasyMock.replay(testEmail);
-		
-		//verify
-		assertEquals(new Date(),testEmail.getSentDate());
 		EasyMock.verify(testEmail);
 	}
 	
