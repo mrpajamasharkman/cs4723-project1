@@ -103,9 +103,9 @@ public class EmailTest extends TestCase {
 	public void testGetHostName() {
 		System.out.println("Running: testGetHostName");
 		
-		email.getHostName();
+		assertEquals(null, email.getHostName());
 		email.setHostName("Host name");
-		email.getHostName();
+		assertEquals("Host name", email.getHostName());
 	}
 	
 	@Test
