@@ -108,11 +108,18 @@ public class EmailTest extends TestCase {
 		assertEquals("Host name", email.getHostName());
 	}
 	
+	//	Done
 	@Test
 	public void testGetMailSession() throws EmailException, NamingException {
 		System.out.println("Running: testGetMailSession");
-		email.setMailSessionFromJNDI("java:/");
-		Session session = email.getMailSession();
+		
+		try {
+			email.setHostName("HostName");
+			email.getMailSession();
+		}
+		catch (EmailException emailException) {
+			assertTrue(emailException.getMessage().equals("Cannot find valid hostname for mail session"));
+		}
 	}
 
 	//	Done
@@ -125,6 +132,7 @@ public class EmailTest extends TestCase {
 		assertEquals(email.getSentDate(), new Date());
 	}
 	
+	//	Done
 	@Test
 	public void testGetSocketConnectionTimeout() {
 		System.out.println("Running: testGetSocketConnectionTimeout");
