@@ -116,7 +116,8 @@ public class EmailTest extends TestCase {
 		email.addCc("mrpajamasharkman@yahoo.com");
 		email.addBcc("the_dunadan@swbell.net");
 		email.addReplyTo("randall.munroe@xkcd.com");
-		email.addHeader("Test Header", "Test Header Value");
+		email.addHeader("Test Header", "Test Header Value");email.setSubject("Test Subject");
+		email.setCharset("UTF-8");
 		try {
 			email.buildMimeMessage();
 		}
@@ -126,10 +127,7 @@ public class EmailTest extends TestCase {
 		catch (IllegalStateException stateException) {
 			System.out.println(stateException);
 		}
-//		email.setSubject("Test Subject");
-//		email.setCharset("UTF-8");
-//		email.setContent(null, null);
-	}
+		}
 	
 	@Test
 	public void testBuildMimeMessage2() throws EmailException{
@@ -138,7 +136,6 @@ public class EmailTest extends TestCase {
 		String string = new String();
 		
 		email.setHostName("Test Host");
-		email.setFrom("qqa368@asap.utsa.edu");
 		email.addTo("lucas.tiedeman@gmail.com");
 		email.setSubject("Test Subject");
 		email.setCharset("UTF-8");
@@ -172,11 +169,9 @@ public class EmailTest extends TestCase {
 		
 		email.setHostName("Test Host");
 		email.setFrom("qqa368@asap.utsa.edu");
-		email.addTo("lucas.tiedeman@gmail.com");
 		email.setSubject("Test Subject");
 		email.setCharset("UTF-8");
-		email.setContent("Obejct???", EmailConstants.TEXT_PLAIN);
-		email.
+		email.setContent("A Test String", EmailConstants.TEXT_PLAIN);
 		try {
 			email.buildMimeMessage();
 		}
