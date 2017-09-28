@@ -32,11 +32,11 @@ public class EmailTest extends TestCase {
 		System.out.println("Running: testAddBcc");
 		
 		List<InternetAddress> aCollection = new ArrayList<InternetAddress>();		
-		aCollection.add(new InternetAddress("qlj814@gmail.com"));
-		aCollection.add(new InternetAddress("seanwoerner.ru89@gmail.com"));
-		aCollection.add(new InternetAddress("seanwoerner@sbcglobal.net"));
+		aCollection.add(new InternetAddress("qqa368@gmail.com"));
+		aCollection.add(new InternetAddress("lucas.tiedeman@gmail.com"));
+		aCollection.add(new InternetAddress("ryne@swbell.net"));
 		
-		email.addBcc(new String[] {"qlj814@gmail.com","seanwoerner.ru89@gmail.com","seanwoerner@sbcglobal.net"});
+		email.addBcc(new String[] {"qqa368@gmail.com","lucas.tiedeman@gmail.com","ryne@swbell.net"});
 		
 		assertEquals(aCollection, email.getBccAddresses());
 	}
@@ -107,23 +107,85 @@ public class EmailTest extends TestCase {
 	
 	//  void buildMimeMessage()
 	@Test
-	public void testBuildMimeMessage() throws EmailException{
-		System.out.println("Running: testBuildMimeMessage");
-		//List<InternetAddress> aCollection = new ArrayList<InternetAddress>();
+	public void testBuildMimeMessage1() throws EmailException{
+		System.out.println("Running: testBuildMimeMessage1");
 		
-		//exception.expect(IllegalStateException.class);
-		
-		// WORK IN PROGRESS
-		/*try {
-			email.addBcc("qlj814@utsa.edu", "test@gmail.com");
-			//email.setBcc();
-			//email.setCc();
-			email.setSubject("Test Subject");
-			email.setCharset("utf-8");
+		email.setHostName("Test Host");
+		email.setFrom("qqa368@asap.utsa.edu");
+		email.addTo("lucas.tiedeman@gmail.com");
+		email.addCc("mrpajamasharkman@yahoo.com");
+		email.addBcc("the_dunadan@swbell.net");
+		email.addReplyTo("randall.munroe@xkcd.com");
+		email.addHeader("Test Header", "Test Header Value");
+		try {
 			email.buildMimeMessage();
-		} catch (MessagingException emailException) {
-            throw emailException;
-		}*/
+		}
+		catch (EmailException emailException) {
+			System.out.println(emailException.toString());
+		}
+		catch (IllegalStateException stateException) {
+			System.out.println(stateException);
+		}
+//		email.setSubject("Test Subject");
+//		email.setCharset("UTF-8");
+//		email.setContent(null, null);
+	}
+	
+	@Test
+	public void testBuildMimeMessage2() throws EmailException{
+		System.out.println("Running: testBuildMimeMessage2");
+		
+		String string = new String();
+		
+		email.setHostName("Test Host");
+		email.setFrom("qqa368@asap.utsa.edu");
+		email.addTo("lucas.tiedeman@gmail.com");
+		email.setSubject("Test Subject");
+		email.setCharset("UTF-8");
+		email.setContent(null, null);
+		try {
+			email.buildMimeMessage();
+		}
+		catch (EmailException emailException) {
+			System.out.println(emailException.toString());
+		}
+		catch (IllegalStateException stateException) {
+			System.out.println(stateException);
+		}
+		email.setContent(new String(), "String");
+		try {
+			email.buildMimeMessage();
+		}
+		catch (EmailException emailException) {
+			System.out.println(emailException.toString());
+		}
+		catch (IllegalStateException stateException) {
+			System.out.println(stateException);
+		}
+	}
+	
+	@Test
+	public void testBuildMimeMessage3() throws EmailException{
+		System.out.println("Running: testBuildMimeMessage3");
+		
+		String string = new String();
+		
+		email.setHostName("Test Host");
+		email.setFrom("qqa368@asap.utsa.edu");
+		email.addTo("lucas.tiedeman@gmail.com");
+		email.setSubject("Test Subject");
+		email.setCharset("UTF-8");
+		email.setContent("Obejct???", EmailConstants.TEXT_PLAIN);
+		email.
+		try {
+			email.buildMimeMessage();
+		}
+		catch (EmailException emailException) {
+			System.out.println(emailException.toString());
+		}
+		catch (IllegalStateException stateException) {
+			System.out.println(stateException);
+		}
 	}
 	
 	//	Done
