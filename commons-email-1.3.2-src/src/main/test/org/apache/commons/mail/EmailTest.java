@@ -1,8 +1,12 @@
 package org.apache.commons.mail;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
 import javax.naming.NamingException;
 
 import org.junit.Rule;
@@ -21,16 +25,23 @@ public class EmailTest extends TestCase {
 		email = new SimpleEmail();
 	}
 	
-	
-	//	Done
+	//  Email addBcc(String... emails) 
 	@Test
-	public void testAddBcc() throws EmailException {
+	public void testAddBcc() throws Exception {
 		System.out.println("Running: testAddBcc");
 		
-		assertEquals(email.addBcc("lucastiedeman@gmail.com"), email);
+		List<InternetAddress> aCollection = new ArrayList<InternetAddress>();		
+		aCollection.add(new InternetAddress("qlj814@gmail.com"));
+		aCollection.add(new InternetAddress("seanwoerner.ru89@gmail.com"));
+		aCollection.add(new InternetAddress("seanwoerner@sbcglobal.net"));
+		
+		email.addBcc(new String[] {"qlj814@gmail.com","seanwoerner.ru89@gmail.com","seanwoerner@sbcglobal.net"});
+		
+		assertEquals(aCollection, email.getBccAddresses());
 	}
 
 	//	Done
+	//  Email addCc(String email)
 	@Test
 	public void testAddCc() throws EmailException {
 		System.out.println("Running: testAddCc");
@@ -39,6 +50,7 @@ public class EmailTest extends TestCase {
 	}
 
 	//	Done
+	//  void addHeader(String name, String value)
 	@Test (expected = IllegalArgumentException.class)
 	public void testAddHeader1() throws IllegalArgumentException {
 		System.out.println("Running: testAddHeader1");
@@ -50,6 +62,7 @@ public class EmailTest extends TestCase {
 	ExpectedException exception = ExpectedException.none();	
 
 	//	Done
+	// void addHeader(String name, String value)
 	@Test (expected = IllegalArgumentException.class)
 	public void testAddHeader2() throws IllegalArgumentException {
 		System.out.println("Running: testAddHeader2");
@@ -66,6 +79,7 @@ public class EmailTest extends TestCase {
 	}	
 
 	//	Done
+	//  void addHeader(String name, String value)
 	@Test (expected = IllegalArgumentException.class)
 	public void testAddHeader3() throws IllegalArgumentException {
 		System.out.println("Running: testAddHeader3");
@@ -82,6 +96,7 @@ public class EmailTest extends TestCase {
 	}
 
 	//	Done
+	//  Email addReplyTo(String email, String name)
 	@Test
 	public void testAddReplyTo() throws EmailException {
 		System.out.println("Running: testAddReplyTo");
@@ -89,16 +104,29 @@ public class EmailTest extends TestCase {
 		assertEquals(email.addReplyTo("lucastiedeman@gmail.com"), email);
 	}
 	
+	//  void buildMimeMessage()
 	@Test
 	public void testBuildMimeMessage() throws EmailException{
 		System.out.println("Running: testBuildMimeMessage");
+		//List<InternetAddress> aCollection = new ArrayList<InternetAddress>();
 		
-		exception.expect(IllegalStateException.class);
-		email.setMsg("Test message test message test message");
-		email.buildMimeMessage();
+		//exception.expect(IllegalStateException.class);
+		
+		// WORK IN PROGRESS
+		/*try {
+			email.addBcc("qlj814@utsa.edu", "test@gmail.com");
+			//email.setBcc();
+			//email.setCc();
+			email.setSubject("Test Subject");
+			email.setCharset("utf-8");
+			email.buildMimeMessage();
+		} catch (MessagingException emailException) {
+            throw emailException;
+		}*/
 	}
 	
 	//	Done
+	//  String getHostName()
 	@Test
 	public void testGetHostName() {
 		System.out.println("Running: testGetHostName");
@@ -106,13 +134,16 @@ public class EmailTest extends TestCase {
 		assertEquals(null, email.getHostName());
 		email.setHostName("Host name");
 		assertEquals("Host name", email.getHostName());
+		email.setMailSession(Session.getInstance(System.getProperties()));
+		assertEquals(null, email.getHostName());
 	}
 	
 	//	Done
+	//  Session getMailSession()
 	@Test
 	public void testGetMailSession() throws EmailException, NamingException {
 		System.out.println("Running: testGetMailSession");
-		
+	
 		try {
 			email.setHostName("HostName");
 			email.getMailSession();
@@ -123,31 +154,40 @@ public class EmailTest extends TestCase {
 	}
 
 	//	Done
+	//  Date getSentDate()
 	@Test
 	public void testGetSentDate() {
 		System.out.println("Running: testGetSentDate");
 		
 		assertEquals(email.getSentDate(), new Date());
-		email.setSentDate(new Date());
-		assertEquals(email.getSentDate(), new Date());
+		
+		Date date = new Date();
+		email.setSentDate(date);
+		assertEquals(email.getSentDate(), date);
 	}
 	
 	//	Done
+	//  int getSocketConnectionTimeout()
 	@Test
 	public void testGetSocketConnectionTimeout() {
 		System.out.println("Running: testGetSocketConnectionTimeout");
 		
-		email.getSocketConnectionTimeout();
+		assertEquals(email.getSocketConnectionTimeout(), (int)email.getSocketConnectionTimeout());
 	}
 	
+	//  String send()
 	@Test
 	public void testSend() throws EmailException {
 		System.out.println("Running: testSend");
 		
-		email.send();
+		String messageID = email.send();
+		email.buildMimeMessage();
+		
+		assertEquals(messageID, email.sendMimeMessage());
 	}
 
 	//	Done
+	//  Email setFrom(String email)
 	@Test
 	public void testSetFrom() throws EmailException {
 		System.out.println("Running: testSetFrom");
@@ -156,6 +196,7 @@ public class EmailTest extends TestCase {
 	}
 	
 	//	Done
+	//  void updateContentType(String aContentType)
 	@Test
 	public void testUpdateContentType() {
 		System.out.println("Running: testContentType");
