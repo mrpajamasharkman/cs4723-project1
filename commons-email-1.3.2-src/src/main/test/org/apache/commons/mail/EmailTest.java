@@ -25,6 +25,7 @@ public class EmailTest extends TestCase {
 		email = new SimpleEmail();
 	}
 	
+	//  Done
 	//  Email addBcc(String... emails) 
 	@Test
 	public void testAddBcc() throws Exception {
